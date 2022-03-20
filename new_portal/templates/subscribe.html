@@ -1,0 +1,56 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+news
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам пост, ID которого было передано в адрес -->
+{% block content %}
+    <h1>{{post.heading|truncatewords:2|censor:'***' }}</h1>
+    <p>{{  post.text_post|censor:'***' }}</p>
+    <p>Автор: <b>{{ post.author.user.username }}</b></p>
+
+
+        {% if request.user.is_authenticated %}
+        <p>
+            Вы можете подписаться на новости категории:
+            {% for category in post.categories.all %}
+                {% if not category in user_category %}
+                    <a href="{% url 'subscribe' %}?category_id={{ category.id }}"><br>{{ category.categoryname }}</a>
+                {% else %}
+                    <br>{{ category.name }}
+                {% endif %}
+            {% endfor %}
+            <h6>Ваши текущие подписки:</h6>
+            {% for category in user_category %}
+                <br>{{ category.name }}
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endblock content %}
+
+
+ {% for category in post.postCategory.all %}
+
+            {{ category.categoryname }}
+
+            <!-- если пользователь авторизован, то показываем форму подписки -->
+            {% if request.user.is_authenticated %}
+            <form action="subscribe/" method="POST">
+                {% csrf_token %}
+                <!-- передаём через скрытое поле id категории -->
+                <input type="hidden" name="category_id" value="{{ category.id }}">
+                <!-- если пользователя нет в категориях то отображаем кнопку Подписаться-->
+                {% if current_user not in category.subscribers.all %}
+                <input type="submit" name="subscribers_button" value="Подписаться">
+                {% else %}
+                <!-- если пользователь есть в категориях то отображаем кнопку Отписаться-->
+                <input type="submit" name="unsubscribers_button" value="Отписаться">
+                {% endif %}
+            </form>
+            {% endif %}
+{% endfor %} </div>
+

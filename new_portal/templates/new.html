@@ -1,0 +1,48 @@
+{% extends 'flatpages/default.html' %}
+
+{% load censor %}
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+<!--<h1>{{ new }}</h1>-->
+        <table>
+            <tr>
+            <td>
+                <h2>Заголовок статьи</h2>
+            </td>
+            <td>
+                 <h2>Категория</h2>
+            </td>
+            <td>
+                <h2>Дата публикации</h2>
+            </td>
+            <td>
+                <h2>Статья</h2>
+            </td>
+            <td>
+                <h2>Рейтинг</h2>
+            </td>
+            </tr>
+             <td>
+                {{ new.postTitle| censor }}
+            </td>
+
+            <td>
+                {{ new.categoryType }}
+            </td>
+            <td>
+                {{ new.pubData|date:'d M Y, H:m' }}
+            </td>
+            <td>
+                {{ new.postText|censor }}
+            </td>
+            <td>
+                <h4>{{ new.postRating  }}</h4>
+            </td>
+        </table>
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
+</head>
+<body>
+    <h2>{{ subject }}</h2>
+
+    {% for post in posts %}
+    <p><a href="http://127.0.0.1:8000/news/{{ post.id }}" target="_blank">{{ post.postTitle }}</a> {{ post.preview }}</p>
+    {% endfor %}
+</body>
+</html>

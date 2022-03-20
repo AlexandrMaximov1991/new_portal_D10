@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,0">
+    <title>Document</title>
+</head>
+<body>
+
+<h2>Здравствуйте!
+
+<p>В категории на которую вы подписаны, добавилась новая публикация!</p></h2>
+    <h3><a href="http://127.0.0.1:8000{% url 'post_detail' post.id %}">{{ post.postText|truncatechars:100 }}</a></h3>
+<p></p>
+</body>
+</html>
