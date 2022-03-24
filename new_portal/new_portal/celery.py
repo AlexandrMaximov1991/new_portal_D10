@@ -15,5 +15,4 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
     },
 }
-app.autodiscover_tasks()
 

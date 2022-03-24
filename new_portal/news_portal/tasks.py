@@ -36,6 +36,7 @@ def send_posts(email_list, posts):
     # отправляем
     msg.send()
 
+
 @shared_task
 def email_weekly():
     print('Start email_weekly')
@@ -95,7 +96,6 @@ def post_save_post(created, **kwargs):  # получить параметры м
     post_save(post_save_post, sender=Post)
 
 
-@receiver(m2m_changed, sender=Post.postCategory.through)
 @shared_task
 def notify_managers_posts(instance, action, pk_set, *args, **kwargs):
     if action == 'post_add':
@@ -117,4 +117,4 @@ def notify_managers_posts(instance, action, pk_set, *args, **kwargs):
             msg.send()
 
 
-    # post_save(notify_managers_posts, sender=Post.postCategory.through)
+    post_save(notify_managers_posts, sender=Post.postCategory.through)
