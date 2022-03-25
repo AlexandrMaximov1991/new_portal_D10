@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
-
+import logging
 from .models import Post, Category
 
 
@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 from collections import defaultdict
 
 from ..new_portal import settings
+
+logger = logging.getLogger(__name__)
 
 
 def send_posts(email_list, posts):
